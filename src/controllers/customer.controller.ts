@@ -16,16 +16,4 @@ export class CustomerController {
   async findAll(): Promise<Customer[]> {
     return await this.customerService.findAll();
   }
-
-  @Post("/register")
-  async register(@Body() dto: RegisterDto): Promise<Customer> {
-    return await this.customerService.register(dto);
-  }
-
-  @Post("/login")
-  async login(@Body() dto: LoginDto,
-              @Res({ passthrough: true }) response: Response
-  ): Promise<Customer> {
-    return await this.customerService.login(dto, response);
-  }
 }
