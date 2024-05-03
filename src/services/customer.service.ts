@@ -13,8 +13,7 @@ export class CustomerService {
 
   constructor(
     @InjectRepository(Customer)
-    private readonly customerRepository: Repository<Customer>,
-    private readonly jwtService: JwtService
+    private readonly customerRepository: Repository<Customer>
   ) {
   }
 
@@ -26,7 +25,6 @@ export class CustomerService {
     return await this.customerRepository.findOne({ where: { email: email } });
   }
 
-
   async register(dto: RegisterDto): Promise<Customer> {
     try {
 
@@ -36,25 +34,6 @@ export class CustomerService {
       throw error;
     }
 
-  }
-
-  async login(dto: LoginDto, response): Promise<any> {
-    try {
-      const customer = await this.customerRepository.findOne({ where: { email: dto.email } });
-      if (!customer) {
-        throw new HttpException("Not Found User", HttpStatus.NOT_FOUND);
-      }
-      const match = await bcrypt.compare(dto.password, customer.password);
-      if (!match) {
-        throw new HttpException("Invalid credentials", HttpStatus.UNAUTHORIZED);
-      }
-      const jwt = await this.jwtService.signAsync({ id: customer.id });
-      response.cookie("jwt", jwt, { httpOnly: true });
-
-      return jwt;
-    } catch (error) {
-      throw error;
-    }
   }
 
 }
