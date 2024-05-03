@@ -12,7 +12,6 @@ import { AuthController } from './controllers/auth.controller';
 import { AuthService } from './services/auth.service';
 import { JwtModule } from "@nestjs/jwt";
 import { RoleMiddleware } from "./common/middleware/role.middleware";
-import { RootTestModule } from "./test/root.test.module";
 
 @Module({
   imports: [
